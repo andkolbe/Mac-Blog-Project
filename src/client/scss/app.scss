@@ -1,0 +1,19 @@
+$theme-colors: (
+    'primary': #8094DE,
+    'secondary': #7E7AB6,
+    'info': #9EA8B3,
+    'success': #334B83,
+    'warning': #F7F7F6
+);
+
+.btn {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+body {
+    background-color: #edf2f2 !important;
+}
+
+
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
