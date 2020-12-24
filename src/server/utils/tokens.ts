@@ -7,3 +7,4 @@ export const createToken = (payload: IPayload) => {
     return token;
 }
 
+// a payload is a JavaScript object and can be populated with whatever we want 

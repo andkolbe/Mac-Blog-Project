@@ -11,7 +11,7 @@ const pool = mysql.createPool(config.mysql); // pool automaticaly handles the ha
 export const Query = <T = any>(query: string, values?: any) => { // <T = any> means pass in a generic if there is one, otherwise, default to type of any
     return new Promise<T>((resolve, reject) => {
 
-        const sql = mysql.format(query, values); // debugging utility
+        const sql = mysql.format(query, values); // debugging utility. Formats the query and values into one string
         // console.log(sql);
 
         pool.query(sql, (err, results) => {

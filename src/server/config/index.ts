@@ -1,9 +1,13 @@
 import * as dotenv from 'dotenv';
 
-dotenv.config();
+const envFound = dotenv.config();
+
+if (!envFound) {
+    throw new Error('no .env file');
+}
 
 export default {
-    mysql: {
+    mysql: { // credentials for the mysql.createPool(). export as config.mysql
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
         password: process.env.DB_PASS,

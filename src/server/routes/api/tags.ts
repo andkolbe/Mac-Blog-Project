@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import db from '../db'; // points to the index.ts file in the db folder
+import db from '../../db'; // points to the index.ts file in the db folder
 
 const router = Router();
 

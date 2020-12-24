@@ -4,7 +4,7 @@ import registerRouter from './register';
 
 const router = Router();
 
-router.use('/register', registerRouter)
 router.use('/login', loginRouter)
+router.use('/register', registerRouter)
 
 export default router;

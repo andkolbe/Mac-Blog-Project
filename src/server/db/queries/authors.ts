@@ -7,6 +7,8 @@ const insert = (newAuthor: any) => Query<CannedResponse>('INSERT INTO authors SE
 // const insert (name: string, email: string) => Query<CannedResponse>('INSERT INTO authors (name, email) VALUE (?, ?)', [name, email]);
 
 const find = (column: string, value: string | number) => Query<TAuthors[]>('SELECT * FROM authors WHERE ?? = ?', [column, value]);
+// ?? is the escape character for columns. they get parsed differently than ? for sql injection attacks
+// ?? can be placeholders for columns that are passed in dynamically
 
 
 export default {
