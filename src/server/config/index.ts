@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 const envFound = dotenv.config();
 
 if (!envFound) {
-    throw new Error('no .env file');
+    throw new Error('no .env file'); // if there is no env file don't run the application
 }
 
 export default {

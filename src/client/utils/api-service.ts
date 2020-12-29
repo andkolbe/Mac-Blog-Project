@@ -19,6 +19,8 @@ export default async <T = any>(uri: string, method: string = 'GET', body?: {}) =
 
     if (Token) {
         headers.append('Authorization', `Bearer ${Token}`)
+        // bearer tokens are always in the 'Authorization' request header field
+        // headers are harder to hack than bodies because they need to be more specific
     } 
 
     try {

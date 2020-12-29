@@ -1,6 +1,9 @@
 import { Router } from 'express';
 import db from '../../db'; // points to the index.ts file in the db folder
 
+// if someone wants to GET all or one blog post they shouldn't need a log in token
+// they only need a token if they want to POST, PUT, or DELETE a blog
+
 const router = Router();
 
 router.get('/:id?', async (req, res) => {

@@ -6,7 +6,7 @@ import * as morgan from 'morgan';
 import * as path from 'path';
 import * as passport from 'passport';
 import routes from './routes';
-import './middlewares/passport-strategies'; // run this file after as the server starts running 
+import './middlewares/passport-strategies'; // run this file after as the server runs and compiles. think of it like a useEffect. this comes from typescript
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.use(morgan('dev')); // every incoming route passes through morgan so it logs
 app.use(passport.initialize()); // must be initialized above the routes // this prepares our express application to utilize passport as if it was an express middleware
 app.use(express.static('public'));
 app.use(express.json()); // body parser
-app.use(routes); // this will hide the /api route data from any randos who go on the web page and try to type it in the url bar it
+app.use(routes); 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html'))); // our code is actually running from dist/server.js
 // tells the server: if a route doesn't start with /api, get out of the way, ignore it, it's front end
 // you have to add this in in a SPA (single page application)

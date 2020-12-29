@@ -3,6 +3,7 @@ export interface TAuthors { // start your backend interfaces with T
     name?: string;
     email?: string;
     password?: string;
+    banned?: string;
     created_at?: Date;
 }
 

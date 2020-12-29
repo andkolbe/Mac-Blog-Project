@@ -9,20 +9,22 @@ import config from '../config';
 passport.serializeUser((user, done) => done(null, user))
 passport.deserializeUser((user, done) => done(null, user))
 // these two lines create a req.user. They must go before you initialize your routes
+// serialize creates a req.user and deserialize will remove it in certain scenarios
 
-passport.use(new LocalStrategy.Strategy({
+passport.use(new LocalStrategy.Strategy({ // passport strategies are writtien as object oriented classes
     usernameField: 'email' // local accepts a username by default so we can override that with email
 }, async (email, password, done) => { // done is a function used by passport to determine when the strategy is done
-        // email and password are authomatically pulled from the request body and give them to you as variables
-    try {
-        const [author] = await db.authors.find('email', email); 
+    // email and password are authomatically pulled from the request body and given to you as variables
+    try { 
+        const [author] = await db.authors.find('email', email);
         // we are finding the 'email' column with the email value from the req.body
         // the first parameter must match the column name in your database
 
-        if (author && comparePasswordToHash(password, author.password)) { 
+        if (author && comparePasswordToHash(password, author.password)) {
             // first parameter is the plain text password submitted by a user, second parameter is the hash password stored in the database
             delete author.password // this will make sure your password is not returned to the front end by mistake
-            done(null, author);
+            done(null, author); // there is no error so the first argument is null
+            // if the two passwords match, delete the password and serialize the req.user again
         } else {
             done(null, false); // false will default to 401 unauthorized 
         }
@@ -32,6 +34,48 @@ passport.use(new LocalStrategy.Strategy({
     }
 }))
 
+// local lets you authenticate using a username and password in node.js applications
+// local is used with logging in to a website when using our own database and our own written logic
+// logging in via google or facebook or twitter have their own passport strategies
+
+// someone attemps to log in with an req.body.email and req.body.password
+// look up the email in the database 
+// if the email finds a person, and the password they log in with matches what is stored in the database using the salt and hashing
+// then the author info stored in the database becomes the req.user
+// if the author email is not found, or the password does not match, respond with a 401
+
+
+
+passport.use(new JWTStrategy.Strategy({ // tells our server how to handle a bearer token request
+    jwtFromRequest: JWTStrategy.ExtractJwt.fromAuthHeaderAsBearerToken(),
+    // jwtFromRequest asks, how am I sending the JWT to my server? As a bearer token 
+    secretOrKey: config.auth.secret // must provide your secret key here
+}, async (payload: IPayload, done) => {
+    try {
+        const [author] = await db.authors.one(payload.userid);  
+    //  const [author] = await db.authors.find('id', payload.userid); SAME THING
+        if (author && author.banned !== 'y') {
+            delete author.password
+            done(null, author); // the first argument of done is whatever the error is
+        } else {
+            done(null, false);
+        }
+    } catch (error) {
+        console.log(error);
+        done(error);
+    }
+}))
+// passport.jwt will automatically handle the expiration
+
+// extract the token from the header
+// verify the token by checking the secret
+// display the payload 
+
+
+/*
+
+Can use this if there you are not checking for banned
+
 passport.use(new JWTStrategy.Strategy({ // tells our server how to handle a bearer token request
     jwtFromRequest: JWTStrategy.ExtractJwt.fromAuthHeaderAsBearerToken(),
     // jwtFromRequest asks, how am I sending the JWT to my server? As a bearer token 
@@ -39,3 +83,5 @@ passport.use(new JWTStrategy.Strategy({ // tells our server how to handle a bear
 }, (payload:IPayload, done) => {
     done(null, payload); // the first argument of done is whatever the error is
 }))
+
+*/

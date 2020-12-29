@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Layout from '../components/Layout';
 import type { IBlog } from '../utils/Types';
 import PreviewCard from '../components/PreviewCard';
 
