@@ -38,7 +38,7 @@ const Details: React.FC<DetailsProps> = props => {
                             <h5 className="d-flex card-title justify-content-center align-items-center">{blog?.title}</h5> 
                             <div>
                                 {blogtags?.map(blogtag => (
-                                    <span className="badge badge-primary mb-3 p-2" key={`blogtag-${blogtag.id}`} >{blogtag.name}</span>
+                                    <span className="badge badge-primary mb-3 mx-1 p-2" key={`blogtag-${blogtag.id}`} >{blogtag.name}</span>
                                 ))}
                             </div>
                             <p className="card-text">{blog?.content}</p>

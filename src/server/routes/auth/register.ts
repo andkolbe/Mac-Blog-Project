@@ -1,6 +1,6 @@
 import db from '../../db';
 import { Router } from 'express';
-import { generateHash } from '../../utils/passwords';
+import { generateHash } from '../../utils/passwords'; // a hashed password is generated when a new user registers
 import { createToken } from '../../utils/tokens';
 
 const router = Router();
@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
     // It takes the plain text password on the req.body, passes it through the algorithm and generates a hash and salted password, and then reassigns itself to itself
     try {
         const cannedResponse = await db.authors.insert(newAuthorDTO); // we want to register a new author on our blog site
-        const token = createToken({ authorid: cannedResponse.insertId }) // cannedResponse.insertId represents the id of who was just insterted into the authors table // userid comes from interface IPayload
+        const token = createToken({ userid: cannedResponse.insertId }) // cannedResponse.insertId represents the id of who was just insterted into the authors table // userid comes from interface IPayload
         res.json(token); // this will return a json web token. encoded not encrypted
         // this token is stored in state on our front end
     } catch (error) {

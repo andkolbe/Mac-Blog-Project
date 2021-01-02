@@ -8,6 +8,7 @@ import Details from './views/Details';
 import Donate from './views/Donate';
 import Home from './views/Home';
 import Login from './views/Login';
+import Lulz from './views/Lulz';
 import NewPost from './views/NewPost';
 import NotFound from './views/NotFound';
 import Register from './views/Register';
@@ -32,6 +33,9 @@ const App: React.FC<AppProps> = (props, state) => {
 				</Route>
 				<Route exact path='/login'>
 					<Login />
+				</Route>
+				<Route exact path='/lulz'>
+					<Lulz />
 				</Route>
 				<Route exact path='/contact'>
 					<Contact />

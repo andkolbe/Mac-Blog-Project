@@ -15,6 +15,10 @@ passport.use(new LocalStrategy.Strategy({ // passport strategies are writtien as
     usernameField: 'email' // local accepts a username by default so we can override that with email
 }, async (email, password, done) => { // done is a function used by passport to determine when the strategy is done
     // email and password are authomatically pulled from the request body and given to you as variables
+    // you don't need to write 
+    // const email = req.body.email
+    // const password = req.body.password
+    
     try { 
         const [author] = await db.authors.find('email', email);
         // we are finding the 'email' column with the email value from the req.body

@@ -2,18 +2,22 @@ import * as React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { TOKEN_KEY } from '../utils/api-service';
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, ...rest }) => { // FC stands for function component. PrivateRoute is a function component
-// const PrivateRoute = (props: PrivateRouteProps) => {    Another way to write this. direct strong typing props
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, ...rest }) => { // children and ...rest are destructured from props
+    // ...rest represents the rest of the props of this component
     
-    const token = localStorage.getItem(TOKEN_KEY)
-    if (token) {
-        return (
-            <Route { ...rest }>
-                    { children }
-				</Route>
+    const token = localStorage.getItem(TOKEN_KEY) 
+    // you receive a token when you log in
+
+    if (token) { // if we have a correct token, go to the original route path
+        return ( // this needs to be dynamic so we can put PrivateRoute on any Route and it will always lead to the correct place
+            <Route { ...rest }> 
+                { children }
+			</Route>
         );
     } else {
-        return <Redirect to={{ pathname: '/login', state: { msg: 'You gotta be logged in, dipshit' } }} />;
+        return <Redirect to={{ pathname: '/login', state: { msg: 'You must be logged in to write a new post' } }} />; // state can be an object
+        // Link needs to be clicked on, Redirect happens automatically
+        // Redirect is the jsx version of history.push
     }
    
 }
@@ -24,3 +28,8 @@ interface PrivateRouteProps {
 }
 
 export default PrivateRoute;
+
+// children is anything inside of the PrivateRoute component
+//  <PrivateRoute exact path='/derp'> <- ...rest passes everything along in the exact path
+//      <h1>Derp</h1> <- children 
+//  </PrivateRoute>

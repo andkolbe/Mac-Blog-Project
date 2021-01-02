@@ -1,24 +1,43 @@
 // new hotnesssssssss
 // nice
 
-export const TOKEN_KEY = 'token';
+export const TOKEN_KEY = 'token'; // strings as easy to typo. variables have autocomplete
+// a named export must always be imported inside of curly braces
 export default async <T = any>(uri: string, method: string = 'GET', body?: {}) => {
+    // method will default to GET unless provided
+    // body is optional because it is typically provided on POST or PUT requests but not all requests
 
-    const Token = localStorage.getItem(TOKEN_KEY); 
+
+    const Token = localStorage.getItem(TOKEN_KEY); // if there is nothing in localStorage, it will return undefined(falsy)
+    // localstorage is an api built into every major modern browser. it is a json object that can store any type of json data you want under a key name
+    // typically used for profile or account settings that don't need to be stored in a database
+    // you can store info in it temporarily and quickly repopulate pages with information without having to make a call to your server
+    // localstorage can expire or clear by manually clearing it with localStorage.clear(); or by going to your browser and clearing your cache
+    // it is not global. it is defined per root path. my localhost 3000 storage won't conflict with google's localstorage or any other website
+    // localstorage persists even if you close thr browser
+    // it is not available in private browsing or incognito mode
+    // it is encoded not encrypted. it can be accessed and goofed with by anyone
+    // sessionStorage is the same as localStorage but it does not persist. Once you leave the browser, the sessionStorage is cleared
+    // we have to use methods that are provided for us with localStorage to retrieve, set, clear values, etc. Getters and Setters
+    // getItem will return a string if there is a token in localstorage, if not, getItem will return null
+
+
 
     const headers = new Headers();
-    const options: {[ key: string ]: string | Headers} = {
-        method, 
-        headers
+    // append won't overwrite existing keys. set will overwrite existing keys
+    const options: {[ key: string ]: string | Headers} = { // how to strong type a javascript object when you don't know what the property is going to be
+                // [] don't mean array here. bracket notation. same as using dot notation
+        method, // is of type string
+        headers // is of type Headers
     }
 
     if (method === 'POST' || method === 'PUT') {
-        headers.append('Content-Type', 'application/json')
-        options.body = JSON.stringify(body);
+        headers.append('Content-Type', 'application/json') // we only need this line if we are using a POST or PUT request
+        options.body = JSON.stringify(body); // we only need to add the body property and stringify it for a POST or PUT request 
     }
 
-    if (Token) {
-        headers.append('Authorization', `Bearer ${Token}`)
+    if (Token) { // if we have a correct token, go to the original route path
+        headers.append('Authorization', `Bearer ${Token}`) // if the token is real, attach it for our server to find
         // bearer tokens are always in the 'Authorization' request header field
         // headers are harder to hack than bodies because they need to be more specific
     } 
@@ -38,12 +57,12 @@ export default async <T = any>(uri: string, method: string = 'GET', body?: {}) =
             throw new Error('my server code sucks :( check terminal!')
         }
 
-        if (res.ok) {
+        if (res.ok) { // status codes 200s and 300s are ok
             return <T>await res.json();
         }
 
-    } catch (error) {
-        console.log(error);
+    } catch (error) { // the specific error is thrown down here
+        console.log(error); // and then logged
     }
 
 }
