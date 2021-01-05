@@ -5,6 +5,8 @@ import type { ITag } from '../utils/types';
 import api from '../utils/api-service';
 import Layout from '../components/Layout';
 
+let oldId: number = null;
+
 const Admin: React.FC<AdminProps> = props => {
     const { id } = useParams<{ id: string }>();
     const history = useHistory();
@@ -22,10 +24,10 @@ const Admin: React.FC<AdminProps> = props => {
 
             const res2 = await fetch(`/api/blogtags/${id}`) // same id as /blogs
             const blogtags = await res2.json();
-
+            oldId = blogtags[0].tagid;
             setTitle(blog.title);
             setContent(blog.content);
-            setSelectedTagid(blogtags[0].tagid);
+            setSelectedTagid(blogtags[0].tagid); // tagid comes from way the stored procedure is written
         })()
     }, [id]) // rerender the view when the id changes
 
@@ -36,14 +38,17 @@ const Admin: React.FC<AdminProps> = props => {
     const editBlog = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault(); // prevents the form from refreshing the page before the POST promise can execute. Otherwise the click will reset the page with black form data
         api(`/api/blogs/${id}`, 'PUT', { title, content })
-        api(`/api/blogtags/${id}, 'PUT`)
+        if (oldId !== Number(selectedTagid)) {
+            api(`/api/blogtags/${id}`, 'PUT', { oldId, newId: Number(selectedTagid) })
+        }
+        history.push(`/details/${id}`);
     };   
 
     const deleteBlog = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         
-        // api(`/api/blogtags/${id}`, 'DELETE' );
-        // api(`/api/blogs/${id}`, 'DELETE' );
+        // api(`/api/blogtags/${id}`, 'DELETE');
+        // api(`/api/blogs/${id}`, 'DELETE');
         // history.push('/');
 
         const res = await fetch(`/api/blogtags/${id}`, {
