@@ -3,7 +3,7 @@ import * as helmet from 'helmet';
 import * as compression from 'compression';
 import * as cors from 'cors';
 import * as morgan from 'morgan';
-import * as path from 'path';
+import * as path from 'path'; // path comes with express
 import * as passport from 'passport';
 import routes from './routes';
 import './middlewares/passport-strategies'; // run this file after as the server runs and compiles. think of it like a useEffect. this comes from typescript
@@ -21,6 +21,7 @@ app.use(routes);
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html'))); // our code is actually running from dist/server.js
 // tells the server: if a route doesn't start with /api, get out of the way, ignore it, it's front end
 // you have to add this in in a SPA (single page application)
+// it allows react-router to do its job
 
 const port = process.env.PORT || 3000; 
 // If there is an environment variable already provided for us, use that. Otherwise, default to 3000

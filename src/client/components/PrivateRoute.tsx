@@ -22,9 +22,9 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, ...rest }) => { /
    
 }
 
-interface PrivateRouteProps {
-    path: string,
-    exact?: boolean
+interface PrivateRouteProps { // ...rest represents the exact and path props
+    exact?: boolean; // you can write paths without exact
+    path: string;  
 }
 
 export default PrivateRoute;

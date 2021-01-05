@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as moment from 'moment';
-import { IBlog } from '../utils/Types';
+import { IBlog } from '../utils/types';
 import { Link } from 'react-router-dom';
 
 const PreviewCard: React.FC<PreviewCardProps> = ({ blog }) => { // FC stands for function component. PreviewCard is a function component

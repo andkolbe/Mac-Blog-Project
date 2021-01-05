@@ -1,21 +1,21 @@
 import * as React from 'react';
-import api from '../utils/api-service';
-import type { ITag } from '../utils/Types';
+import { useState, useEffect } from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
+import type { ITag } from '../utils/types';
+import api from '../utils/api-service';
 import Layout from '../components/Layout';
-
 
 const Admin: React.FC<AdminProps> = props => {
     const { id } = useParams<{ id: string }>();
     const history = useHistory();
 
-    const [title, setTitle] = React.useState(''); // typescript will infer these are strings. you don't have to write <string>
-    const [content, setContent] = React.useState('');
-    const [selectedTagid, setSelectedTagid] = React.useState('0');
+    const [title, setTitle] = useState(''); // typescript will infer these are strings. you don't have to write <string>
+    const [content, setContent] = useState('');
+    const [selectedTagid, setSelectedTagid] = useState('0');
 
-    const [tags, setTags] = React.useState<ITag[]>([]);
+    const [tags, setTags] = useState<ITag[]>([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         (async () => {
             const res = await fetch(`/api/blogs/${id}`);
             const blog = await res.json();
@@ -26,37 +26,38 @@ const Admin: React.FC<AdminProps> = props => {
             setTitle(blog.title);
             setContent(blog.content);
             setSelectedTagid(blogtags[0].id);
+            console.log(blogtags[0].id); 
         })()
     }, [id]) // rerender the view when the id changes
 
-    React.useEffect(() => {
+    useEffect(() => {
         api('/api/tags').then(tags => setTags(tags))
     }, []); // a blank array means we don't want the effect to run more than once
 
-    const editBlog = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const editBlog = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault(); // prevents the form from refreshing the page before the POST promise can execute. Otherwise the click will reset the page with black form data
-        const res = await fetch(`/api/blogs/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ title, content })
-        });
-        await res.json();
-        history.push(`/details/${id}`)
+        api(`/api/blogs/${id}`, 'PUT', { title, content })
+        api(`/api/blogtags/${id}, 'PUT`)
     };   
 
     const deleteBlog = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        
+        // api(`/api/blogtags/${id}`, 'DELETE' );
+        // api(`/api/blogs/${id}`, 'DELETE' );
+        // history.push('/');
+
         const res = await fetch(`/api/blogtags/${id}`, {
             method: 'DELETE'
         });
         const res2 = await fetch(`/api/blogs/${id}`, {
             method: 'DELETE'
         });
-        if (res.ok && res2.ok) { // res.ok comes from a fetch response. it will check the status number from the server. ok will be true for 200-399 and false for 400-500
+        if (res.ok && res2.ok) {
             history.push('/');
         }
+        
+        
     }
 
     return ( // return is always written after the methods

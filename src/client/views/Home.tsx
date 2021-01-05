@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { IBlog } from '../utils/Types';
+import type { IBlog } from '../utils/types';
 import PreviewCard from '../components/PreviewCard';
 
 const Home: React.FC<HomeProps> = props => { // FC stands for function component. Template is a function component

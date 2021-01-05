@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { unstable_batchedUpdates } from 'react-dom';
 import { Link, useHistory, useParams } from 'react-router-dom';
-import type { IBlog } from '../utils/types'; // adding type makes sure that when the code compiles, this will have no impact on the final bundle size
+import type { IBlog, ITag } from '../utils/types'; // adding type makes sure that when the code compiles, this will have no impact on the final bundle size
 
 const Details: React.FC<DetailsProps> = props => {
     const { id } = useParams<{id: string}>();
     const history = useHistory();
 
     const [blog, setBlog] = React.useState<IBlog>(null);// you can't initialize an empty object because it's expecting all the properties in one IBlog. use null as a placeholder
-    const [blogtags, setBlogTags] = React.useState<{id: number, name: string}[]>(null); // tag id and tag name
+    const [blogtags, setBlogTags] = React.useState<ITag[]>([]); 
 
     React.useEffect(() => {
         const getBlog = async () => {
@@ -16,7 +16,7 @@ const Details: React.FC<DetailsProps> = props => {
            // const blog = await blogRes.json();
            // const blogTagsRes = await fetch(`/api/blogtags/${id}`) // same id as /blogs
            // const blogtags = await blogTagsRes.json();
-
+           
             const [ blogRes, blogtagRes ] = await Promise.all([fetch(`/api/blogs/${id}`), fetch(`/api/blogtags/${id}`)]);
             const [ blog, blogtags ] = await Promise.all([blogRes.json(), blogtagRes.json()]);
             unstable_batchedUpdates(() => {
@@ -33,7 +33,6 @@ const Details: React.FC<DetailsProps> = props => {
             <section className="row justify-content-center mt-3">
                 <div className="col-12">
                     <div className="card">
-                        <img src="..." className="card-img-top" alt="..." />
                         <div className="card-body">
                             <h5 className="d-flex card-title justify-content-center align-items-center">{blog?.title}</h5> 
                             <div>

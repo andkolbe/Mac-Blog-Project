@@ -12,7 +12,7 @@ export default async <T = any>(uri: string, method: string = 'GET', body?: {}) =
     // localstorage is an api built into every major modern browser. it is a json object that can store any type of json data you want under a key name
     // typically used for profile or account settings that don't need to be stored in a database
     // you can store info in it temporarily and quickly repopulate pages with information without having to make a call to your server
-    // localstorage can expire or clear by manually clearing it with localStorage.clear(); or by going to your browser and clearing your cache
+    // localstorage can expire or clear by manually clearing it with localStorage.clear(); or by going to your browser and clearing your cache or cookies
     // it is not global. it is defined per root path. my localhost 3000 storage won't conflict with google's localstorage or any other website
     // localstorage persists even if you close thr browser
     // it is not available in private browsing or incognito mode

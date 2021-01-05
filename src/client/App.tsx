@@ -13,7 +13,7 @@ import NewPost from './views/NewPost';
 import NotFound from './views/NotFound';
 import Register from './views/Register';
 
-const App: React.FC<AppProps> = (props, state) => {
+const App: React.FC<AppProps> = props => {
 
 	return (
 		<BrowserRouter>
@@ -28,15 +28,15 @@ const App: React.FC<AppProps> = (props, state) => {
 				<Route exact path='/details/:id'>
 					<Details />
 				</Route>
-				<Route exact path='/admin/:id'>
+				<PrivateRoute exact path='/admin/:id'>
 					<Admin />
-				</Route>
+				</PrivateRoute>
 				<Route exact path='/login'>
 					<Login />
 				</Route>
-				<Route exact path='/lulz'>
+				<PrivateRoute exact path='/lulz'>
 					<Lulz />
-				</Route>
+				</PrivateRoute>
 				<Route exact path='/contact'>
 					<Contact />
 				</Route>
