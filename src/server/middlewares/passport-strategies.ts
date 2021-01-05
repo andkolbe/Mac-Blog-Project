@@ -78,7 +78,7 @@ passport.use(new JWTStrategy.Strategy({ // tells our server how to handle a bear
 
 /*
 
-Can use this if there you are not checking for banned
+Can use this if you are not checking for banned
 
 passport.use(new JWTStrategy.Strategy({ // tells our server how to handle a bearer token request
     jwtFromRequest: JWTStrategy.ExtractJwt.fromAuthHeaderAsBearerToken(),

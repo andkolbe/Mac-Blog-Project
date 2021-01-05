@@ -10,7 +10,7 @@ import './middlewares/passport-strategies'; // run this file after as the server
 
 const app = express();
 
-app.use(helmet()); // this should be at the top so everything else filters through it
+//app.use(helmet()); // this should be at the top so everything else filters through it
 app.use(compression()); // everything after compression needs to be compressed
 app.use(cors());
 app.use(morgan('dev')); // every incoming route passes through morgan so it logs all activity across the server

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Layout = ({ children }) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
     return (
         <main className="container">
             <section className="row justify-content-center mt-5">
@@ -11,5 +11,7 @@ const Layout = ({ children }) => {
         </main>
     );
 } 
+
+interface LayoutProps {}
 
 export default Layout;
