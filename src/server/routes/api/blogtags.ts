@@ -17,8 +17,8 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const { tagid, id } = req.body; // destructured from the blogtag db page
-        await db.blogtags.insert(id, tagid);
+        const { blogid, tagid } = req.body; // destructured from the blogtag db page
+        await db.blogtags.insert(blogid, tagid);
         res.json({ msg: 'blogtag created' });
     } catch (error) {
         console.log(error)

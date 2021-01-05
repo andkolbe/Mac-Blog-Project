@@ -1,9 +1,9 @@
 import { Query } from '../';
 
-const oneBlogTag = (id: number) => Query('CALL spBlogTags(?)', [id])
-const insert = (id: number, tagid: number) => Query('INSERT INTO blogtags (id, tagid) VALUES (?, ?)', [id, tagid]);
-const update = (newTagid: number, oldTagid: number, id: number) => Query('UPDATE blogtags SET tagid = ? WHERE id = ? AND tagid = ?', [newTagid, id, oldTagid])
-const destroy = (id: number) => Query('DELETE FROM blogtags WHERE id = ?', [id])
+const oneBlogTag = (blogid: number) => Query('CALL spBlogTags(?)', [blogid])
+const insert = (blogid: number, tagid: number) => Query('INSERT INTO blogtags (blogid, tagid) VALUES (?, ?)', [blogid, tagid]);
+const update = (newTagid: number, oldTagid: number, blogid: number) => Query('UPDATE blogtags SET tagid = ? WHERE blogid = ? AND tagid = ?', [newTagid, blogid, oldTagid])
+const destroy = (blogid: number) => Query('DELETE FROM blogtags WHERE blogid = ?', [blogid])
 
 export default {
     oneBlogTag,

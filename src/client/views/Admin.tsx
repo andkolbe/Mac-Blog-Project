@@ -20,13 +20,12 @@ const Admin: React.FC<AdminProps> = props => {
             const res = await fetch(`/api/blogs/${id}`);
             const blog = await res.json();
 
-            const blogTagsRes = await fetch(`/api/blogtags/${id}`) // same id as /blogs
-            const blogtags = await blogTagsRes.json();
+            const res2 = await fetch(`/api/blogtags/${id}`) // same id as /blogs
+            const blogtags = await res2.json();
 
             setTitle(blog.title);
             setContent(blog.content);
-            setSelectedTagid(blogtags[0].id);
-            console.log(blogtags[0].id); 
+            setSelectedTagid(blogtags[0].tagid);
         })()
     }, [id]) // rerender the view when the id changes
 
