@@ -1,4 +1,3 @@
-import { token } from 'morgan';
 import * as React from 'react';
 import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -7,6 +6,11 @@ import api, { TOKEN_KEY } from '../utils/api-service';
 
 const Login: React.FC<LoginProps> = props => { // FC stands for function component. Login is a function component
 // const Login = (props: LoginProps) => {    Another way to write this. direct strong typing props
+// React.FC has opinions. It will automatically strong type props.children for you as react nodes that you wrap. We don't write a lot of componenets that wrap other components
+// from a philosophical perspective should we ask if children should be here or not if they don't exist? If this component never has them, why strong type them?
+// Why make it an option if that is never going to happen?
+// It comes down to, how do we want to use typescript? As a one to one complete documentation of our code? Or intellisense booster?
+
 
     const history = useHistory();
     
@@ -23,13 +27,8 @@ const Login: React.FC<LoginProps> = props => { // FC stands for function compone
         history.goBack();
     }
 
-    // using the service file looks like
-    // const token = await apiService('/auth/login', 'POST', {email, password});
-    // localStorage.setItem(TOKEN_KEY, token);
-
     return (
         <Layout>
-            <h1 className="text-center">Login</h1>
             {location.state?.msg && <div className="alert alert-danger text-center">{location.state.msg}</div>}
             <form className="font-weight-bold">
                 <div className="mb-4">
@@ -40,7 +39,7 @@ const Login: React.FC<LoginProps> = props => { // FC stands for function compone
                     <label htmlFor="LoginPassword" className="form-label">Password</label>
                     <input value={password} onChange={e => setPassword(e.target.value)} type="password" className="form-control"/>
                 </div>
-                <button onClick={login} type="submit" className="btn btn-primary font-weight-bold">Login</button>
+                <button onClick={login} type="submit" className="btn btn-success">Login</button>
             </form>
         </Layout>
     );

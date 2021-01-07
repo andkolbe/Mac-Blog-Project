@@ -12,7 +12,8 @@ router.post('/', passport.authenticate('local'), async (req: ReqUser, res) => { 
     
     const token = createToken({ userid: req.user.id }) // comes from interface IPayload
         res.json(token);
-
 })
+
+// authentication deals with logging in and registering 
 
 export default router;

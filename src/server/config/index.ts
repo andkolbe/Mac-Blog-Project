@@ -21,6 +21,8 @@ export default {
         expires: process.env.JWT_EXPIRES
     },
     keys: {
-        stripe: process.env.STRIPE_KEY
+        stripe: process.env.STRIPE_KEY,
+        mailgun: process.env.MAILGUN_KEY,
+        mailgun_domain: process.env.MAILGUN_DOMAIN
     }
 }

@@ -35,17 +35,17 @@ const NewPost: React.FC<NewPostProps> = props => {
 
     return ( // return is always written after the methods
         <Layout>
-            <form className="form-group border p-4 shadow bg-white">
-                <label htmlFor="name" className="font-weight-bold">Title</label>
+            <form className="form-group border p-4 shadow bg-white font-weight-bold">
+                <label htmlFor="name">Title</label>
                 <input placeholder="write title here..." value={title} onChange={e => setTitle(e.target.value)} type="text" className="form-control bg-warning" />
-                <label htmlFor="selected tag" className="font-weight-bold mt-4">Tags</label>
+                <label htmlFor="selected tag" className="mt-4">Tags</label>
                 <select value={selectedTagid} onChange={e => setSelectedTagid(e.target.value)} className="form-control">
                     <option value="0">Select a Tag ...</option>
                     {tags.map(tag => (
                         <option key={`tag-key-${tag.id}`} value={tag.id}>{tag.name}</option>
                     ))}
                 </select>
-                <label className="mt-4 font-weight-bold">Content</label>
+                <label className="mt-4">Content</label>
                 <textarea placeholder="write content here..." value={content} onChange={e => setContent(e.target.value)} rows={12} className="form-control my-1 bg-warning"></textarea>
                 <button onClick={submitBlog} className="btn btn-success mt-4 font-weight-bold">Post</button>
             </form>

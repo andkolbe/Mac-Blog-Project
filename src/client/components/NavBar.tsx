@@ -9,7 +9,8 @@ const NavBar: React.FC<NavBarProps> = () => {
             <NavLink exact className="mx-5 font-weight-light" activeClassName="text-primary font-weight-bold" to="/">Home</NavLink>
             <NavLink className="mx-5 font-weight-light" activeClassName="text-primary font-weight-bold" to="/new">New Post</NavLink>
             <NavLink className="mx-5 font-weight-light" activeClassName="text-primary font-weight-bold" to="/login">Login</NavLink>
-
+            <NavLink className="mx-5 font-weight-light" activeClassName="text-primary font-weight-bold" to="/donate">Donate</NavLink>
+            <NavLink className="mx-5 font-weight-light" activeClassName="text-primary font-weight-bold" to="/contact">Contact</NavLink>
         </nav>
     );
 }

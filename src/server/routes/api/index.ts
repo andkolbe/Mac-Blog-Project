@@ -3,6 +3,7 @@ import lulzRouter from './lulz';
 import authorsRouter from './authors'; 
 import blogsRouter from './blogs';
 import blogtagsRouter from './blogtags';
+import contactRouter from './contact';
 import donateRouter from './donate';
 import tagsRouter from './tags';
 
@@ -13,6 +14,7 @@ router.use('/lulz', lulzRouter);
 router.use('/authors', authorsRouter);
 router.use('/blogs', blogsRouter); // /api/blogs
 router.use('/blogtags', blogtagsRouter);
+router.use('/contact', contactRouter);
 router.use('/donate', donateRouter);
 router.use('/tags', tagsRouter);
 

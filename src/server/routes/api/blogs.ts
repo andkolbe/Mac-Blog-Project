@@ -1,10 +1,16 @@
 import { Router } from 'express';
+import * as passport from 'passport';
 import db from '../../db'; // points to the index.ts file in the db folder
 
 // if someone wants to GET all or one blog post they shouldn't need a log in token
 // they only need a token if they want to POST, PUT, or DELETE a blog
 
 const router = Router();
+
+router.get('/search', (req, res) => {
+    console.log(req.query);
+    res.json(`searching for blog post ${req.query.term}`);
+})
 
 router.get('/:id?', async (req, res) => {
     const id = Number(req.params.id); // will respond with NaN if a number isn't provided. NaN === falsy
@@ -24,7 +30,7 @@ router.get('/:id?', async (req, res) => {
 
 // POST /api/blogs/
 // Request Body { title: string, content: string }
-router.post('/', async (req, res) => {
+router.post('/', passport.authorize('jwt'), async (req, res) => {
     try {
         const blogDTO = req.body; // DTO don't mix network layer with data layer
         blogDTO.authorid = 1; // whoever is logged in will replace this eventually
@@ -36,7 +42,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', passport.authorize('jwt'), async (req, res) => {
     try {
         const id = Number(req.params.id);
         const blogDTO = req.body; 
@@ -48,7 +54,7 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', passport.authorize('jwt'), async (req, res) => {
     try {
         const id = Number(req.params.id);
         await db.blogs.destroy(id);

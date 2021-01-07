@@ -4,7 +4,7 @@ import { IBlog } from '../utils/types';
 import { Link } from 'react-router-dom';
 
 const PreviewCard: React.FC<PreviewCardProps> = ({ blog }) => { // FC stands for function component. PreviewCard is a function component
-//const PreviewCard = (props: PreviewCardProps) => { // Another way to write this.direct strong tyoing props 
+//const PreviewCard = (props: PreviewCardProps) => { // Another way to write this. direct strong typing props 
     return (
         <div className="col-md-4">
             <article className="card my-2 shadow">

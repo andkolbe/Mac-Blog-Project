@@ -15,13 +15,12 @@ const Admin: React.FC<AdminProps> = props => {
     const [content, setContent] = useState('');
     const [selectedTagid, setSelectedTagid] = useState('0');
 
-    const [tags, setTags] = useState<ITag[]>([]);
+    const [tags, setTags] = useState<ITag[]>([]); // typescript will not infer array or object datatypes so those must be written between the []
 
     useEffect(() => {
         (async () => {
             const res = await fetch(`/api/blogs/${id}`);
             const blog = await res.json();
-
             const res2 = await fetch(`/api/blogtags/${id}`) // same id as /blogs
             const blogtags = await res2.json();
             oldId = blogtags[0].tagid;

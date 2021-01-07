@@ -16,6 +16,8 @@ const Details: React.FC<DetailsProps> = props => {
            // const blog = await blogRes.json();
            // const blogTagsRes = await fetch(`/api/blogtags/${id}`) // same id as /blogs
            // const blogtags = await blogTagsRes.json();
+            //    setBlog(blog);
+            //    setBlogTags(blogtags);
            
             const [ blogRes, blogtagRes ] = await Promise.all([fetch(`/api/blogs/${id}`), fetch(`/api/blogtags/${id}`)]);
             const [ blog, blogtags ] = await Promise.all([blogRes.json(), blogtagRes.json()]);
@@ -26,7 +28,6 @@ const Details: React.FC<DetailsProps> = props => {
         };
         getBlog();
     }, [id]) // we can rerun this effect when id changes value
-        console.log('render');
 
     return (
         <main className="container">
