@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import api from '../utils/api-service';
 import type { ITag } from '../utils/types';
 import { useHistory } from 'react-router-dom';
@@ -9,14 +10,14 @@ const NewPost: React.FC<NewPostProps> = props => {
 
     const history = useHistory();
 
-    const [title, setTitle] = React.useState(''); // typescript will infer these are strings. you don't have to write <string>
-    const [content, setContent] = React.useState('');
-    const [selectedTagid, setSelectedTagid] = React.useState('0');
+    const [title, setTitle] = useState(''); // typescript will infer these are strings. you don't have to write <string>
+    const [content, setContent] = useState('');
+    const [selectedTagid, setSelectedTagid] = useState('0');
 
 
-    const [tags, setTags] = React.useState<ITag[]>([]);
+    const [tags, setTags] = useState<ITag[]>([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         api('/api/tags').then(tags => setTags(tags))
     }, []); // a blank array means we don't want the effect to run more than once
 

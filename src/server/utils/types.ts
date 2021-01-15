@@ -2,7 +2,7 @@ import { Request } from 'express'; // Request = req variable
 import { TAuthors } from '../db/models';
 
 export interface IPayload {
-    userid?: number;
+    userid?: number; // the is the unique id of the users(authors) in our database. We need the id to get to the token's payload
 }
 
 export interface ReqUser extends Request { 

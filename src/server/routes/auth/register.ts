@@ -9,13 +9,16 @@ const router = Router();
 // POST /auth/register
 router.post('/', async (req, res) => {
     const newAuthorDTO = req.body; // req.body is all of our form data. ex: email, name, password
+    // console.log(newAuthorDTO); console logging the req body will have it show up in the terminal
+    // res.json(newAuthorDTO); parsing the req.body will have it show up in postman
     newAuthorDTO.password = generateHash(newAuthorDTO.password); // The right hand side of the equal sign evaluates first
     // It takes the plain text password on the req.body, passes it through the algorithm and generates a hash and salted password, and then reassigns itself to itself
     try {
-        const cannedResponse = await db.authors.insert(newAuthorDTO); // we want to register a new author on our blog site
-        const token = createToken({ userid: cannedResponse.insertId }) // cannedResponse.insertId represents the id of who was just insterted into the authors table // userid comes from interface IPayload
-        res.json(token); // this will return a json web token. encoded not encrypted
-        // this token is stored in state on our front end
+        const result = await db.authors.insert(newAuthorDTO); // we want to register a new author on our blog site
+        const token = createToken({ userid: result.insertId }) // result.insertId represents the id of who was just inserted into the authors table // userid comes from interface IPayload
+        // createToken takes one parameter: payload. The payload comes attached to the req.body of each individual user. Use the id to specify each user 
+        res.json(token); // this will return a json web token on postman. encoded not encrypted
+        // this token is stored in state on our front end until the user logs out
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'Register Error', error })

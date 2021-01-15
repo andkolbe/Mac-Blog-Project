@@ -26,7 +26,7 @@ export default async <T = any>(uri: string, method: string = 'GET', body?: {}) =
     const headers = new Headers();
     // append won't overwrite existing keys. set will overwrite existing keys
     const options: {[ key: string ]: string | Headers} = { // how to strong type a javascript object when you don't know what the property is going to be
-                // [] don't mean array here. bracket notation. same as using dot notation
+                // [] doesn't mean array here. bracket notation. same as using dot notation
         method, // is of type string
         headers // is of type Headers
     }

@@ -4,7 +4,7 @@ import authRouter from './auth';
 
 const router = Router(); // save the express middleware router in a variable 
 
-router.use('/api', apiRouter);
-router.use('/auth', authRouter)
+router.use('/api', apiRouter); // api for data and information
+router.use('/auth', authRouter) // auth for authorization workflow
 
 export default router;

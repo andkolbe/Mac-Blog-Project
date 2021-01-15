@@ -1,4 +1,5 @@
 import * as passport from 'passport';
+// we have to write middlewares for passport just like we do for app. these are called strategies
 import * as LocalStrategy from 'passport-local';
 import * as JWTStrategy from 'passport-jwt';
 import db from '../db';
@@ -21,7 +22,8 @@ passport.use(new LocalStrategy.Strategy({ // passport strategies are writtien as
     
     try { 
         const [author] = await db.authors.find('email', email);
-        // we are finding the 'email' column with the email value from the req.body
+        // when someone is logging in, we need to make sure the email matches an email in our db
+        // we need to compare the 'email' column stored in our db with the email they are trying to log in with (from the req.body)
         // the first parameter must match the column name in your database
 
         if (author && comparePasswordToHash(password, author.password)) {
@@ -51,7 +53,7 @@ passport.use(new LocalStrategy.Strategy({ // passport strategies are writtien as
 
 
 passport.use(new JWTStrategy.Strategy({ // tells our server how to handle a bearer token request
-    jwtFromRequest: JWTStrategy.ExtractJwt.fromAuthHeaderAsBearerToken(),
+    jwtFromRequest: JWTStrategy.ExtractJwt.fromAuthHeaderAsBearerToken(), // bearer tokens always go in the header! You can hold a token in the body, without using bearer, but it will be easier to hack. 
     // jwtFromRequest asks, how am I sending the JWT to my server? As a bearer token 
     secretOrKey: config.auth.secret // must provide your secret key here
 }, async (payload: IPayload, done) => {

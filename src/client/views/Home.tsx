@@ -1,18 +1,15 @@
 import * as React from 'react';
 import type { IBlog } from '../utils/types';
 import PreviewCard from '../components/PreviewCard';
+import api from '../utils/api-service';
 
 const Home: React.FC<HomeProps> = props => { // FC stands for function component. Template is a function component
 
     const [blogs, setBlogs] = React.useState<IBlog[]>([]);
 
     React.useEffect(() => {
-        (async () => {
-            const res = await fetch('/api/blogs');
-            const blogs = await res.json();
-            setBlogs(blogs);
-        })()
-    }, []);
+        api('/api/blogs').then(blogs => setBlogs(blogs));
+    }, [])
 
     return (
         <main className="container">

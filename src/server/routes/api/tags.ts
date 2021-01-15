@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const tagDTO = req.body;
     try {
-        const { insertId } = await db.tags.insert(tagDTO); // destructure CannedResponse down to insertId
+        const { insertId } = await db.tags.insert(tagDTO); // destructure result down to insertId
         res.json({ msg: 'Tag Added', id: insertId });
     } catch (error) {
         console.log(error)

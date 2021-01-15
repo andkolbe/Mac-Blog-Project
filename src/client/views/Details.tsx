@@ -4,10 +4,14 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import type { IBlog, ITag } from '../utils/types'; // adding type makes sure that when the code compiles, this will have no impact on the final bundle size
 
 const Details: React.FC<DetailsProps> = props => {
+
     const { id } = useParams<{id: string}>();
+    
     const history = useHistory();
 
-    const [blog, setBlog] = React.useState<IBlog>(null);// you can't initialize an empty object because it's expecting all the properties in one IBlog. use null as a placeholder
+    const [blog, setBlog] = React.useState<IBlog>(null);
+    // a single IBlog is an object. You can't initialize an empty object because it's expecting all the properties in one IBlog. 
+    // We don't want to have to write out every property of our object for our inital render. use null as a placeholder. 
     const [blogtags, setBlogTags] = React.useState<ITag[]>([]); 
 
     React.useEffect(() => {
@@ -50,7 +54,8 @@ const Details: React.FC<DetailsProps> = props => {
             </section> 
         </main>
     ); 
-} // optional chaining in front of blog so the initial render doesn't error out. Initial render of array is null
+} // optional chaining (?) in front of blog and blogatgs so the initial render doesn't error out. Initial render of array is null. 
+// null has no properties on it. We will get an error saying title doesn't exist on null 
 
 interface DetailsProps { }
 

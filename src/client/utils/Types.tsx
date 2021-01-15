@@ -9,7 +9,7 @@ export interface ITag {
     created_at?: Date;
 }
 
-export interface IBlog {
+export interface IBlog { // single source of truth. If you need to update what's in an IBlog you can do it here instead of on every page
     id: number;
     title: string;
     content: string;

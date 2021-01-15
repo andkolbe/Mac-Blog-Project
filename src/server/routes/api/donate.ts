@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
         res.json(result);
     } catch (error) {
         console.log(error)
-        res.status(500).json({ msg: 'my code sucks :(', error: error.message }) // sends only the  message portion of the error to postman instead of the giant block message
+        res.status(500).json({ msg: 'my code sucks :(', error: error.message }) 
     }
 })
 

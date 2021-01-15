@@ -8,7 +8,9 @@ import Layout from '../components/Layout';
 let oldId: number = null;
 
 const Admin: React.FC<AdminProps> = props => {
-    const { id } = useParams<{ id: string }>();
+
+    const { id } = useParams<{ id: string }>(); // the variable name must match the name on the route path
+    
     const history = useHistory();
 
     const [title, setTitle] = useState(''); // typescript will infer these are strings. you don't have to write <string>

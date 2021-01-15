@@ -23,7 +23,7 @@ const Login: React.FC<LoginProps> = props => { // FC stands for function compone
     const login = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const token = await api('/auth/login', 'POST', { email, password })
-        localStorage.setItem(TOKEN_KEY, token)
+        localStorage.setItem(TOKEN_KEY, token) // localstorage comes built in with javascript
         history.goBack();
     }
 
@@ -31,7 +31,7 @@ const Login: React.FC<LoginProps> = props => { // FC stands for function compone
         <Layout>
             {location.state?.msg && <div className="alert alert-danger text-center">{location.state.msg}</div>}
             <form className="font-weight-bold">
-                <div className="mb-4">
+                <div className="mb-3">
                     <label htmlFor="LoginEmail" className="form-label">Email Address</label>
                     <input value={email} onChange={e => setEmail(e.target.value)} type="email" className="form-control" aria-describedby="emailHelp"/>
                 </div>

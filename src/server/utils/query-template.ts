@@ -1,19 +1,17 @@
-/*
-import { Query } from '../db';
 
-const all = () => Query('');
-const one = () => Query('', []);
-const insert = () => Query('', []);
-const update = () => Query('', []);
-const destroy = () => Query('', []);
-const find = () => Query('', []);
+// import { Query } from '../';
 
-export default {
-    all,
-    one,
-    insert,
-    update,
-    destroy,
-    find
-}
-*/
+// const all = () => Query('');
+// const one = () => Query('', []);
+// const insert = () => Query('', []);
+// const update = () => Query('', []);
+// const destroy = () => Query('', []);
+
+
+// export default {
+//     all,
+//     one,
+//     insert,
+//     update,
+//     destroy
+// }

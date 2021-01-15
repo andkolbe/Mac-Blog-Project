@@ -10,7 +10,7 @@ const PreviewCard: React.FC<PreviewCardProps> = ({ blog }) => { // FC stands for
             <article className="card my-2 shadow">
                 <div className="card-body">
                     <h4 className="card-title">{blog.title}</h4>
-                    <p className="card-text">{blog.content.substring(0, 125)}</p>
+                    <p className="card-text">{blog.content.substring(0, 125)}</p> 
                     <div className="d-flex justify-content-between">
                         <small className="card-text text-secondary">{moment(blog.created_at).format('dddd')}</small>
                         <Link to={`/details/${blog.id}`}>Read more!</Link>
@@ -21,6 +21,8 @@ const PreviewCard: React.FC<PreviewCardProps> = ({ blog }) => { // FC stands for
         </div>
     );
 }
+
+// substring(0, 125) start at the first character and only show up to the 125th character
 
 interface PreviewCardProps {
     blog: IBlog
