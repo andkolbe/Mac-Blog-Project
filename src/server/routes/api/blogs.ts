@@ -1,6 +1,8 @@
 import { Router } from 'express';
+import { upload } from '../../utils/multer-s3';
 import * as passport from 'passport';
 import db from '../../db'; // points to the index.ts file in the db folder
+
 
 // if someone wants to GET all or one blog post they shouldn't need a log in token
 // they only need a token if they want to POST, PUT, or DELETE a blog
@@ -29,9 +31,12 @@ router.get('/:id?', async (req, res) => {
 })
 
 // POST /api/blogs/
-// Request Body { title: string, content: string }
-router.post('/', passport.authorize('jwt'), async (req, res) => {
+// Request Body { title: string, content: string, file: File }
+router.post('/', passport.authorize('jwt'), upload.single('image'), async (req: any, res) => { // image matches the key on NewPost
     try {
+        // console.log(req.body);
+        // console.log(req.file);
+        // res.json({ msg: `uploaded ${req.file.originalname}`, url: req.file.location })
         const blogDTO = req.body; // DTO don't mix network layer with data layer
         blogDTO.authorid = 1; // whoever is logged in will replace this eventually
         const result = await db.blogs.insert(blogDTO);

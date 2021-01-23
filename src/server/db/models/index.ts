@@ -13,6 +13,7 @@ export interface TBlogs {
     content?: string;
     authorid?: number;
     created_at?: Date;
+    image_url?: string;
 }
 
 export interface TTags {

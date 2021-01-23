@@ -15,4 +15,5 @@ export interface IBlog { // single source of truth. If you need to update what's
     content: string;
     authorid: number;
     created_at: Date;
+    image_url: string;
 }

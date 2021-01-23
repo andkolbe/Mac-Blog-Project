@@ -8,7 +8,7 @@
     "watch:server": "nodemon dist/server.js",
     "dev": "npm-run-all --parallel watch:*",
     "start": "node dist/server.js",
-    "build": "webpack" 
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +33,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.6",
     "@types/uuid": "^8.3.0",
+    "aws-sdk": "^2.830.0",
     "bcrypt": "^5.0.0",
     "bootstrap": "^4.5.0",
     "compression": "^1.7.4",

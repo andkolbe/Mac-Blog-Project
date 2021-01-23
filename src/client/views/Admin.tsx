@@ -15,6 +15,7 @@ const Admin: React.FC<AdminProps> = props => {
 
     const [title, setTitle] = useState(''); // typescript will infer these are strings. you don't have to write <string>
     const [content, setContent] = useState('');
+    const [file, setFile] = useState<File>(null); // there is a typescript datatype called File
     const [selectedTagid, setSelectedTagid] = useState('0');
 
     const [tags, setTags] = useState<ITag[]>([]); // typescript will not infer array or object datatypes so those must be written between the []
@@ -55,6 +56,7 @@ const Admin: React.FC<AdminProps> = props => {
         const res = await fetch(`/api/blogtags/${id}`, {
             method: 'DELETE'
         });
+        // you have to delete the blogtag before the blog
         const res2 = await fetch(`/api/blogs/${id}`, {
             method: 'DELETE'
         });
@@ -79,6 +81,11 @@ const Admin: React.FC<AdminProps> = props => {
                 </select>
                 <label className="mt-4 font-weight-bold">Content</label>
                 <textarea placeholder="write content here..." value={content} onChange={e => setContent(e.target.value)} rows={12} className="form-control my-1 bg-warning"></textarea>
+                <label className='mt-4' htmlFor='picture'>Add Picture</label>
+                <div>
+                    <input onChange={e => setFile(e.target.files[0])} className='form-control-file' type='file' id='picture' />
+                    <img className='img-thumbnail mt-3' src={file ? URL.createObjectURL(file) : 'https://via.placeholder.com/125'} alt='picture' />
+                </div>
                 <div className="d-flex justify-content-between mt-4">
                     <button onClick={editBlog} className="btn btn-success">Submit</button>
                     <Link className="btn btn-success" to={`/details/${id}`}>Go Back</Link>

@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import * as passport from 'passport';
 import db from '../../db';
 
 
@@ -15,7 +16,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', passport.authorize('jwt'), async (req, res) => {
     try {
         const { blogid, tagid } = req.body; // destructured from the blogtag db page
         await db.blogtags.insert(blogid, tagid);
@@ -26,7 +27,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', passport.authorize('jwt'), async (req, res) => {
     const id = Number(req.params.id)
     const tagDTO = req.body
     try {
@@ -38,7 +39,7 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', passport.authorize('jwt'), async (req, res) => {
     try {
         const id = Number(req.params.id)
         await db.blogtags.destroy(id);

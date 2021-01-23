@@ -23,6 +23,8 @@ export default {
     keys: {
         stripe: process.env.STRIPE_KEY,
         mailgun: process.env.MAILGUN_KEY,
-        mailgun_domain: process.env.MAILGUN_DOMAIN
+        mailgun_domain: process.env.MAILGUN_DOMAIN,
+        aws_key_id: process.env.AWS_KEY_ID,
+        aws_secret_key: process.env.AWS_SECRET_KEY
     }
 }

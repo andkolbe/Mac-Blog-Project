@@ -39,6 +39,7 @@ const Details: React.FC<DetailsProps> = props => {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-body">
+                            <img src={blog?.image_url} alt="image"/>
                             <h5 className="d-flex card-title justify-content-center align-items-center">{blog?.title}</h5> 
                             <div>
                                 {blogtags?.map(blogtag => (

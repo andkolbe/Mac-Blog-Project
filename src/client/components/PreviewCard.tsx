@@ -9,6 +9,7 @@ const PreviewCard: React.FC<PreviewCardProps> = ({ blog }) => { // FC stands for
         <div className="col-md-10">
             <article className="card my-2 shadow">
                 <div className="card-body">
+                    <img src={blog.image_url} alt="image"/>
                     <h4 className="card-title">{blog.title}</h4>
                     <p className="card-text">{blog.content.substring(0, 125)}</p> 
                     <div className="d-flex justify-content-between">

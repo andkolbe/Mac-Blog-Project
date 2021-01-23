@@ -1,4 +1,3 @@
-
 // import { Query } from '../';
 
 // const all = () => Query('');

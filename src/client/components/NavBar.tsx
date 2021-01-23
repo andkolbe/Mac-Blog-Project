@@ -7,7 +7,7 @@ const NavBar: React.FC<NavBarProps> = () => {
         <nav className="nav justify-content-center shadow bg-warning p-3 mb-2">
             {/* <p>{location.pathname}</p> shows pathname on page on rerenders*/}
             <div>
-                <h1>Andrew's Food Blog</h1>
+                <h3>Andrew's Food Blog</h3>
             </div>
             <div className="nav justify-content-center bg-warning p-3 mb-2">
                 <NavLink exact className="mx-5 font-weight-light" activeClassName="text-primary font-weight-bold" to="/">Home</NavLink>
