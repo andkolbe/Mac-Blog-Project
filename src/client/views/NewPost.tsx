@@ -37,18 +37,39 @@ const NewPost: React.FC<NewPostProps> = props => {
     //         });
     // };
 
-    const submitBlog = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const submitBlog = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault(); // prevents the form from refreshing the page before the POST promise can execute. Otherwise the click will reset the page with black form data
-        api('/api/blogs', 'POST', { title, content } ) // newBlog can also be written as { title, content, file }
-            .then(blogPost => {
-                if (selectedTagid !== '0') {
-                    api('/api/blogtags', 'POST', { blogid: blogPost.insertId, tagid: selectedTagid })
-                        .then(() => setSelectedTagid('0')) // back to the default placeholder: Select a Tag...
+        const newBlog = new FormData();
+        newBlog.append('title', title);
+        newBlog.append('content', content);
+        newBlog.append('image', file); 
+        const res = await fetch('/api/blogs', {
+            method: 'POST',
+            body: newBlog
+        })
+        const blogResult = await res.json();
 
-                }
-                history.push('/'); // place this here so you will still be redirected back to the home page even if a tag isn't selected 
-            });
+        if (selectedTagid !== '0') {
+            api('/api/blogtags', 'POST', { blogid: blogResult.insertId, tagid: selectedTagid })
+                .then(() => setSelectedTagid('0')) // back to the default placeholder: Select a Tag...
+
+        }
+        history.push('/'); // place this here so you will still be redirected back to the home page even if a tag isn't selected 
+
     };
+
+    // const submitBlog = (e: React.MouseEvent<HTMLButtonElement>) => {
+    //     e.preventDefault(); // prevents the form from refreshing the page before the POST promise can execute. Otherwise the click will reset the page with black form data
+    //     api('/api/blogs', 'POST', { title, content } ) // newBlog can also be written as { title, content, file }
+    //         .then(blogPost => {
+    //             if (selectedTagid !== '0') {
+    //                 api('/api/blogtags', 'POST', { blogid: blogPost.insertId, tagid: selectedTagid })
+    //                     .then(() => setSelectedTagid('0')) // back to the default placeholder: Select a Tag...
+
+    //             }
+    //             history.push('/'); // place this here so you will still be redirected back to the home page even if a tag isn't selected 
+    //         });
+    // };
 
     return ( // return is always written after the methods
         <Layout>

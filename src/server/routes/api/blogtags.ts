@@ -39,7 +39,7 @@ router.put('/:id', passport.authorize('jwt'), async (req, res) => {
     }
 })
 
-router.delete('/:id', passport.authorize('jwt'), async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         const id = Number(req.params.id)
         await db.blogtags.destroy(id);

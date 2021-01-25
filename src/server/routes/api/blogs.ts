@@ -32,7 +32,7 @@ router.get('/:id?', async (req, res) => {
 
 // POST /api/blogs/
 // Request Body { title: string, content: string, file: File }
-router.post('/', passport.authorize('jwt'), upload.single('image'), async (req: any, res) => { // image matches the key on NewPost
+router.post('/', upload.single('image'), async (req: any, res) => { // image matches the key on NewPost
     try {
         // console.log(req.body);
         // console.log(req.file);
@@ -59,7 +59,7 @@ router.put('/:id', passport.authorize('jwt'), async (req, res) => {
     }
 })
 
-router.delete('/:id', passport.authorize('jwt'), async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         const id = Number(req.params.id);
         await db.blogs.destroy(id);
