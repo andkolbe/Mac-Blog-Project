@@ -1,11 +1,11 @@
 // new hotnesssssssss
 // nice
 
-export const TOKEN_KEY = 'token'; // strings as easy to typo. variables have autocomplete
+export const TOKEN_KEY = 'token'; // strings are easy to typo. variables have autocomplete 
 // a named export must always be imported inside of curly braces
 export default async <T = any>(uri: string, method: string = 'GET', body?: {}) => {
     // method will default to GET unless provided
-    // body is optional because it is typically provided on POST or PUT requests but not all requests
+    // body is optional because it is typically provided only on POST or PUT requests
 
 
     const Token = localStorage.getItem(TOKEN_KEY); // if there is nothing in localStorage, it will return undefined(falsy)
@@ -20,7 +20,6 @@ export default async <T = any>(uri: string, method: string = 'GET', body?: {}) =
     // sessionStorage is the same as localStorage but it does not persist. Once you leave the browser, the sessionStorage is cleared
     // we have to use methods that are provided for us with localStorage to retrieve, set, clear values, etc. Getters and Setters
     // getItem will return a string if there is a token in localstorage, if not, getItem will return null
-
 
 
     const headers = new Headers();

@@ -14,9 +14,8 @@ const PreviewCard: React.FC<PreviewCardProps> = ({ blog }) => { // FC stands for
                     <p className="card-text">{blog.content.substring(0, 125)}</p> 
                     <div className="d-flex justify-content-between">
                         <small className="card-text text-secondary">{moment(blog.created_at).format('ll')}</small>
-                        <Link to={`/details/${blog.id}`}>Read more</Link>
+                        <Link className="btn text-secondary" to={`/details/${blog.id}`}>Read more</Link>
                     </div>
-
                 </div>
             </article>
         </div>

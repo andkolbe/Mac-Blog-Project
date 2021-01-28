@@ -15,7 +15,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, ...rest }) => { /
 			</Route>
         );
     } else {
-        return <Redirect to={{ pathname: '/login', state: { msg: 'You must be logged in to write a new post' } }} />; // state can be an object
+        return <Redirect to={{ pathname: '/login', state: { msg: 'You must be logged in to write a new post or edit an existing one' } }} />; // state can be an object
         // Link needs to be clicked on, Redirect happens automatically
         // Redirect is the jsx version of history.push
     }

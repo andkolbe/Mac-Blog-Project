@@ -5,6 +5,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 import NavBar from './components/NavBar';
 import PrivateRoute from './components/PrivateRoute';
+import About from './views/About';
 import Admin from './views/Admin';
 import Contact from './views/Contact';
 import Details from './views/Details';
@@ -15,6 +16,7 @@ import Lulz from './views/Lulz';
 import NewPost from './views/NewPost';
 import NotFound from './views/NotFound';
 import Register from './views/Register';
+
 import { Elements } from '@stripe/react-stripe-js'; 
 // Elements allows our form access to stripe's elements components and access the stripe object in any nested component
 // it is a wrapping style component similar to our PrivateRoute
@@ -34,6 +36,9 @@ const App: React.FC<AppProps> = props => {
 				<Route exact path='/'>
 					<Home />
 				</Route>
+				<PrivateRoute exact path='/about'>
+					<About />
+				</PrivateRoute>
 				<PrivateRoute exact path='/new'>
 					<NewPost />
 				</PrivateRoute>

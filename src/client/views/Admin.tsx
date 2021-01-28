@@ -77,7 +77,7 @@ const Admin: React.FC<AdminProps> = props => {
                 </div>
                 <div className="d-flex justify-content-between mt-4">
                     <button onClick={editBlog} className="btn btn-success">Submit</button>
-                    <Link className="btn btn-success" to={`/details/${id}`}>Go Back</Link>
+                    <Link className="btn text-secondary" to={`/details/${id}`}>Go Back</Link>
                     <button onClick={deleteBlog} className="btn font-weight-bold text-danger">Delete</button>
                 </div>
             </form>

@@ -3,6 +3,7 @@ import type { IBlog } from '../utils/types';
 import PreviewCard from '../components/PreviewCard';
 import api from '../utils/api-service';
 import { useLocation } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
 
 const Home: React.FC<HomeProps> = props => { // FC stands for function component. Template is a function component
 
@@ -19,12 +20,15 @@ const Home: React.FC<HomeProps> = props => { // FC stands for function component
         <main className="container">
             {location.state?.msg && <div className="alert alert-success text-center justify-content-center">{location.state.msg}</div>}
             <section className="row">
+
                 {blogs.map(blog => (
                     <PreviewCard key={`blog-preview-${blog.id}`} blog={blog} />
                 ))}
+
                 <div className="col-md-4">
-                    <div>
-                        <input type="search" placeholder='search'/>
+                    <div className="input-group mb-3">
+                        <input type="text" className="form-control" />
+                        <button className="btn btn-secondary" type="button">< FaSearch /></button>
                     </div>
                     <div>
                         <article className="card my-2 shadow">
@@ -34,6 +38,7 @@ const Home: React.FC<HomeProps> = props => { // FC stands for function component
                         </article>
                     </div>
                 </div>
+
             </section>
         </main>
         // state is stored on the keys so they must be unique to each component that is generated
