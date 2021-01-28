@@ -1,6 +1,6 @@
 import config from '../config';
 import * as path from 'path';
-import * as multer from 'multer';
+import * as multer from 'multer'; // multer is a body parser for FormData
 import * as multerS3 from 'multer-s3'; // needed to connect multer to aws
 import * as aws from 'aws-sdk';
 
@@ -35,3 +35,4 @@ const storage = multerS3({
 
 // creates an express multer middleware called upload to use the storage system defined by multer s3 that is connected to amazon
 export const upload = multer({ storage });
+

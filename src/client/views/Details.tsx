@@ -39,7 +39,7 @@ const Details: React.FC<DetailsProps> = props => {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-body">
-                            <img src={blog?.image_url} alt="image"/>
+                            <img className='w-100' src={blog?.image_url} alt="image"/>
                             <h5 className="d-flex card-title justify-content-center align-items-center">{blog?.title}</h5> 
                             <div>
                                 {blogtags?.map(blogtag => (
@@ -47,8 +47,8 @@ const Details: React.FC<DetailsProps> = props => {
                                 ))}
                             </div>
                             <p className="card-text">{blog?.content}</p>
-                            <button onClick={() => history.push('/')} className="btn btn-success mr-4">Go Back</button>
-                            <Link className="btn btn-secondary" to={`/admin/${id}`}>Edit / Delete</Link>
+                            <Link className="btn btn-secondary mr-4" to={`/admin/${id}`}>Edit / Delete</Link>
+                            <button onClick={() => history.push('/')} className="btn btn-success">Go Back</button>
                         </div> 
                     </div> 
                 </div> 

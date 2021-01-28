@@ -16,7 +16,7 @@ const NavBar: React.FC<NavBarProps> = () => {
                 <NavLink className="mx-5 font-weight-light" activeClassName="text-primary font-weight-bold" to="/contact">Contact</NavLink>
                 <NavLink className="mx-5 font-weight-light" activeClassName="text-primary font-weight-bold" to="/register">Register</NavLink>
                 <NavLink className="mx-5 font-weight-light" activeClassName="text-primary font-weight-bold" to="/login">Login</NavLink>
-                <NavLink onClick={() => localStorage.clear()} className="mx-5 font-weight-light" to="/">Logout</NavLink>
+                <NavLink onClick={() => localStorage.clear()} className="mx-5 font-weight-light" to={{ pathname: '/', state: { msg: 'You Have Been Logged Out' }}}>Logout</NavLink>
             </div>
         </nav>
     );

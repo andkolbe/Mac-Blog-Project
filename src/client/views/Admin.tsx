@@ -10,7 +10,7 @@ let oldId: number = null;
 const Admin: React.FC<AdminProps> = props => {
 
     const { id } = useParams<{ id: string }>(); // the variable name must match the name on the route path
-    
+
     const history = useHistory();
 
     const [title, setTitle] = useState(''); // typescript will infer these are strings. you don't have to write <string>
@@ -27,7 +27,7 @@ const Admin: React.FC<AdminProps> = props => {
             const res2 = await fetch(`/api/blogtags/${id}`) // same id as /blogs
             const blogtags = await res2.json();
             oldId = blogtags[0].tagid;
-            setTitle(blog.title);
+            setTitle(blog.title); // always use the setter when you are changing state
             setContent(blog.content);
             setSelectedTagid(blogtags[0].tagid); // tagid comes from way the stored procedure is written
         })()
@@ -39,32 +39,21 @@ const Admin: React.FC<AdminProps> = props => {
 
     const editBlog = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault(); // prevents the form from refreshing the page before the POST promise can execute. Otherwise the click will reset the page with black form data
-        api(`/api/blogs/${id}`, 'PUT', { title, content })
+        api(`/api/blogs/${id}`, 'PUT', { title, content, file })
         if (oldId !== Number(selectedTagid)) {
             api(`/api/blogtags/${id}`, 'PUT', { oldId, newId: Number(selectedTagid) })
         }
         history.push(`/details/${id}`);
-    };   
+    };
 
     const deleteBlog = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        
-        // api(`/api/blogtags/${id}`, 'DELETE');
-        // api(`/api/blogs/${id}`, 'DELETE');
-        // history.push('/');
 
-        const res = await fetch(`/api/blogtags/${id}`, {
-            method: 'DELETE'
-        });
-        // you have to delete the blogtag before the blog
-        const res2 = await fetch(`/api/blogs/${id}`, {
-            method: 'DELETE'
-        });
-        if (res.ok && res2.ok) {
-            history.push('/');
-        }
-        
-        
+        api(`/api/blogtags/${id}`, 'DELETE')
+            .then(() => {
+                api(`/api/blogs/${id}`, 'DELETE');
+                history.push('/');
+            })
     }
 
     return ( // return is always written after the methods

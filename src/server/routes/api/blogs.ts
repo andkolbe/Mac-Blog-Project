@@ -38,8 +38,9 @@ router.post('/', upload.single('image'), async (req: any, res) => { // image mat
         // console.log(req.file);
         // res.json({ msg: `uploaded ${req.file.originalname}`, url: req.file.location })
         const blogDTO = req.body; // DTO don't mix network layer with data layer
+        const image_url = req.file.location; // req.file is provided to us by multer. rea.file.location is the image url
         blogDTO.authorid = 1; // whoever is logged in will replace this eventually
-        const result = await db.blogs.insert(blogDTO);
+        const result = await db.blogs.insert(blogDTO.title, blogDTO.content, blogDTO.authorid , image_url);
         res.json(result);
     } catch (error) {
         console.log(error)

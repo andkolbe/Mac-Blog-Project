@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import api from '../utils/api-service';
 import type { ITag } from '../utils/types';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Layout from '../components/Layout';
 
 
@@ -21,22 +21,6 @@ const NewPost: React.FC<NewPostProps> = props => {
         api('/api/tags').then(tags => setTags(tags))
     }, []); // a blank array means we don't want the effect to run more than once
 
-    // const submitBlog = (e: React.MouseEvent<HTMLButtonElement>) => {
-    //     e.preventDefault(); // prevents the form from refreshing the page before the POST promise can execute. Otherwise the click will reset the page with black form data
-    //     const newBlog = new FormData(); // how to package data to the back end that contains a file. Images can't be stringified. Body parser would turn it into text
-    //     newBlog.append('title', title);
-    //     newBlog.append('content', content);
-    //     newBlog.append('image', file); 
-    //     api('/api/blogs', 'POST', newBlog) // newBlog can also be written as { title, content, file }
-    //         .then(blogPost => {
-    //             if (selectedTagid !== '0') {
-    //                 api('/api/blogtags', 'POST', { blogid: blogPost.insertId, tagid: selectedTagid })
-    //                     .then(() => setSelectedTagid('0')) // back to the default placeholder: Select a Tag...
-    //             }
-    //             history.push('/'); // place this here so you will still be redirected back to the home page even if a tag isn't selected 
-    //         });
-    // };
-
     const submitBlog = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault(); // prevents the form from refreshing the page before the POST promise can execute. Otherwise the click will reset the page with black form data
         const newBlog = new FormData();
@@ -54,8 +38,8 @@ const NewPost: React.FC<NewPostProps> = props => {
                 .then(() => setSelectedTagid('0')) // back to the default placeholder: Select a Tag...
 
         }
-        history.push('/'); // place this here so you will still be redirected back to the home page even if a tag isn't selected 
-
+        history.push('/'); // place this here so you will still be redirected back to the home page even if a tag isn't selected
+         
     };
 
     // const submitBlog = (e: React.MouseEvent<HTMLButtonElement>) => {
