@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import Layout from '../components/Layout';
-import api, { TOKEN_KEY } from '../utils/api-service';
+import apiJSON, { TOKEN_KEY } from '../utils/api-service-json';
 
 const Register = (props: RegisterProps) => {
 
@@ -17,7 +17,7 @@ const Register = (props: RegisterProps) => {
 
     const register = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        const token = await api('/auth/register', 'POST', { name, email, password })
+        const token = await apiJSON('/auth/register', 'POST', { name, email, password })
         localStorage.setItem(TOKEN_KEY, token) // localstorage comes built in with javascript
         history.goBack();
     }

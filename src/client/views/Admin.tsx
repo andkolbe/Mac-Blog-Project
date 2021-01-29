@@ -2,7 +2,8 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import type { ITag } from '../utils/types';
-import api from '../utils/api-service';
+import apiJSON from '../utils/api-service-json';
+import apiFormData from '../utils/api-service-form-data';
 import Layout from '../components/Layout';
 
 let oldId: number = null;
@@ -34,14 +35,18 @@ const Admin: React.FC<AdminProps> = props => {
     }, [id]) // rerender the view when the id changes
 
     useEffect(() => {
-        api('/api/tags').then(tags => setTags(tags))
+        apiJSON('/api/tags').then(tags => setTags(tags))
     }, []); // a blank array means we don't want the effect to run more than once
 
     const editBlog = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault(); // prevents the form from refreshing the page before the POST promise can execute. Otherwise the click will reset the page with black form data
-        api(`/api/blogs/${id}`, 'PUT', { title, content, file })
+        const newBlog = new FormData();
+        newBlog.append('title', title);
+        newBlog.append('content', content);
+        newBlog.append('image', file);
+        apiFormData(`/api/blogs/${id}`, 'PUT', { newBlog })
         if (oldId !== Number(selectedTagid)) {
-            api(`/api/blogtags/${id}`, 'PUT', { oldId, newId: Number(selectedTagid) })
+            apiJSON(`/api/blogtags/${id}`, 'PUT', { oldId, newId: Number(selectedTagid) })
         }
         history.push(`/details/${id}`);
     };
@@ -49,9 +54,9 @@ const Admin: React.FC<AdminProps> = props => {
     const deleteBlog = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        api(`/api/blogtags/${id}`, 'DELETE')
+        apiJSON(`/api/blogtags/${id}`, 'DELETE')
             .then(() => {
-                api(`/api/blogs/${id}`, 'DELETE');
+                apiJSON(`/api/blogs/${id}`, 'DELETE');
                 history.push('/');
             })
     }

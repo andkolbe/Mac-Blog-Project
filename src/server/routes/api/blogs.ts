@@ -34,7 +34,7 @@ router.get('/:id?', async (req, res) => {
 // Request Body { title: string, content: string, file: File }
 
 //@ts-ignore
-router.post('/', upload.single('image'), async (req: any, res) => { // image matches the key on NewPost
+router.post('/', passport.authorize('jwt'), upload.single('image'), async (req: any, res) => { // image matches the key on NewPost
     try {
         const blogDTO = req.body; // DTO don't mix network layer with data layer
         blogDTO.authorid = 1; // whoever is logged in will replace this eventually

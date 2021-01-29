@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { TOKEN_KEY } from '../utils/api-service';
+import { TOKEN_KEY } from '../utils/api-service-json';
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, ...rest }) => { // children and ...rest are destructured from props
     // ...rest represents the rest of the props of this component

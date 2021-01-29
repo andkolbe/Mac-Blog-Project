@@ -3,7 +3,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'; /
 // react-stripe-js is the component library, it gives you the credit card fields
 // CardElement is a component that will correspond to the credit card number, security code, and the expiration date all in one inline input
 import Layout from '../components/Layout';
-import api from '../utils/api-service';
+import apiJSON from '../utils/api-service-json';
 
 const Donate = (props: DonateProps) => {    // direct strong typing props
 
@@ -17,7 +17,7 @@ const Donate = (props: DonateProps) => {    // direct strong typing props
         const cardElement = elements.getElement(CardElement); // we put the CardElement in a variable because we don't want to mess around with anything from stripe directly. Protects us against liability
         const { token, error } = await stripe.createToken(cardElement); // same as making a fetch request to their server without having to actually write it. We use their built in function to make the process much easier for us
         // createToken returns an object that has two properties. token and error. destructured from obj.token and obj.error
-        const result = await api('/api/donate', 'POST', { amount, token }); // we take the amount and the token from stripe and send it to our back end
+        const result = await apiJSON('/api/donate', 'POST', { amount, token }); // we take the amount and the token from stripe and send it to our back end
         // shorthand for amount: amount and token: token
         console.log(result);
         setAmount(''); // clears our amount input

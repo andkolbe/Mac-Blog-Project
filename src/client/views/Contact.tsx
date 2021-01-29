@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import Layout from '../components/Layout';
-import api from '../utils/api-service';
+import apiJSON from '../utils/api-service-json';
 
 const Contact = (props: ContactProps) => {    // Another way to write this. direct strong typing props
 
@@ -11,7 +11,7 @@ const Contact = (props: ContactProps) => {    // Another way to write this. dire
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        const result = await api('/api/contact', 'POST', { email, subject: title, content });
+        const result = await apiJSON('/api/contact', 'POST', { email, subject: title, content });
         console.log(result);
         setEmail('');
         setTitle('');

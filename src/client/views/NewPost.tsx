@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import api from '../utils/api-service';
+import apiJSON from '../utils/api-service-json';
+import apiFormData from '../utils/api-service-form-data';
 import type { ITag } from '../utils/types';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Layout from '../components/Layout';
 
 
@@ -18,7 +19,7 @@ const NewPost: React.FC<NewPostProps> = props => {
     const [tags, setTags] = useState<ITag[]>([]);
 
     useEffect(() => {
-        api('/api/tags').then(tags => setTags(tags))
+        apiJSON('/api/tags').then(tags => setTags(tags))
     }, []); // a blank array means we don't want the effect to run more than once
 
     const submitBlog = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -26,20 +27,15 @@ const NewPost: React.FC<NewPostProps> = props => {
         const newBlog = new FormData();
         newBlog.append('title', title);
         newBlog.append('content', content);
-        newBlog.append('image', file); 
-        const res = await fetch('/api/blogs', {
-            method: 'POST',
-            body: newBlog
-        })
-        const blogResult = await res.json();
-
-        if (selectedTagid !== '0') {
-            api('/api/blogtags', 'POST', { blogid: blogResult.insertId, tagid: selectedTagid })
-                .then(() => setSelectedTagid('0')) // back to the default placeholder: Select a Tag...
-
-        }
+        newBlog.append('image', file);
+        await apiFormData('/api/blogs', 'POST', { newBlog })
+            .then(blogResult => {
+                if (selectedTagid !== '0') {
+                    apiJSON('/api/blogtags', 'POST', { blogid: blogResult.insertId, tagid: selectedTagid })
+                        .then(() => setSelectedTagid('0')) // back to the default placeholder: Select a Tag...
+                }
+            })
         history.push('/'); // place this here so you will still be redirected back to the home page even if a tag isn't selected
-         
     };
 
     // const submitBlog = (e: React.MouseEvent<HTMLButtonElement>) => {

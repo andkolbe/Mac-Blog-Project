@@ -12,7 +12,6 @@ import Details from './views/Details';
 import Donate from './views/Donate';
 import Home from './views/Home';
 import Login from './views/Login';
-import Lulz from './views/Lulz';
 import NewPost from './views/NewPost';
 import NotFound from './views/NotFound';
 import Register from './views/Register';
@@ -51,9 +50,6 @@ const App: React.FC<AppProps> = props => {
 				<Route exact path='/login'>
 					<Login />
 				</Route>
-				<PrivateRoute exact path='/lulz'>
-					<Lulz />
-				</PrivateRoute>
 				<Route exact path='/contact'>
 					<Contact />
 				</Route>

@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { unstable_batchedUpdates } from 'react-dom';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import type { IBlog, ITag } from '../utils/types'; // adding type makes sure that when the code compiles, this will have no impact on the final bundle size
 
 const Details: React.FC<DetailsProps> = props => {
 
     const { id } = useParams<{ id: string }>();
-
-    const history = useHistory();
 
     const [blog, setBlog] = React.useState<IBlog>(null);
     // a single IBlog is an object. You can't initialize an empty object because it's expecting all the properties in one IBlog. 
