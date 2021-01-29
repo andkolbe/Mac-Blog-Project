@@ -27,6 +27,14 @@ export interface TBlogTags {
     tagid?: number;
 }
 
+export interface TComments {
+    id?: number;
+    name?: string;
+    comment?: string;
+    blogid?: number;
+    created_at?: Date;
+}
+
 export interface CannedResponse {
     insertId?: number;
     affectedRows?: number;

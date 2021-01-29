@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
-import { TOKEN_KEY } from '../utils/api-service'
+import { TOKEN_KEY } from '../utils/api-service-json';
+
 
 const NavBar: React.FC<NavBarProps> = isLoggedIn => {
 
-    if (localStorage) isLoggedIn;
+    const Token = localStorage.getItem(TOKEN_KEY); 
+
+    if (Token) isLoggedIn;
     if (isLoggedIn) {
         return (
             <nav className="nav justify-content-center shadow bg-warning p-3 mb-2">

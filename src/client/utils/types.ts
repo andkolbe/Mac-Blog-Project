@@ -17,3 +17,12 @@ export interface IBlog { // single source of truth. If you need to update what's
     created_at: Date;
     image_url: string;
 }
+
+export interface IComment {
+    id: number;
+    name: string;
+    comment: string;
+    blogid: number;
+    created_at: Date;
+}
+

@@ -1,16 +1,23 @@
+import * as moment from 'moment';
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { unstable_batchedUpdates } from 'react-dom';
 import { Link, useParams } from 'react-router-dom';
-import type { IBlog, ITag } from '../utils/types'; // adding type makes sure that when the code compiles, this will have no impact on the final bundle size
+import apiJSON from '../utils/api-service-json';
+import type { IBlog, ITag, IComment } from '../utils/types'; // adding type makes sure that when the code compiles, this will have no impact on the final bundle size
 
 const Details: React.FC<DetailsProps> = props => {
 
     const { id } = useParams<{ id: string }>();
 
-    const [blog, setBlog] = React.useState<IBlog>(null);
+    const [blog, setBlog] = useState<IBlog>(null);
     // a single IBlog is an object. You can't initialize an empty object because it's expecting all the properties in one IBlog. 
     // We don't want to have to write out every property of our object for our inital render. use null as a placeholder. 
-    const [blogtags, setBlogTags] = React.useState<ITag[]>([]);
+    const [blogtags, setBlogTags] = useState<ITag[]>([]);
+
+    const [comments, setComments] = useState<IComment[]>([])
+    const [name, setName] = useState('');
+    const [comment, setComment] = useState('');
 
     React.useEffect(() => {
         const getBlog = async () => {
@@ -31,6 +38,10 @@ const Details: React.FC<DetailsProps> = props => {
         getBlog();
     }, [id]) // we can rerun this effect when id changes value
 
+    React.useEffect(() => {
+        apiJSON(`/api/comments/`).then(comments => setComments(comments));
+    }, [])
+
     return (
         <main className="container">
             <section className="row justify-content-center mt-3">
@@ -49,14 +60,28 @@ const Details: React.FC<DetailsProps> = props => {
                             <Link className="btn text-secondary" to={'/'}>Go Back</Link>
                         </div>
                     </div>
-                    <form className='form-group border shadow bg-white font-weight-bold  p-4 mt-5'>
-                        <h5>Add a Comment</h5>
-                        <label htmlFor='name'>Name</label>
-                        <input placeholder='write your name...' value='' type='text' className='form-control bg-warning' />
-                        <label className='mt-4'>Comment</label>
-                        <textarea placeholder='write your comment...' value='' rows={5} className='form-control my-1 bg-warning'></textarea>
-                        <button className='btn btn-success mt-4 font-weight-bold'>Post</button>
-                    </form>
+                    <div>
+                        <form className='col-10 form-group border shadow bg-white font-weight-bold  p-4 mt-5'>
+                            <h5>Add a Comment</h5>
+                            <label htmlFor='name'>Name</label>
+                            <input placeholder='write your name...' value={name} onChange={e => setName(e.target.value)} type='text' className='form-control bg-warning' />
+                            <label className='mt-4'>Comment</label>
+                            <textarea placeholder='write your comment...' value={comment} onChange={e => setComment(e.target.value)} rows={5} className='form-control my-1 bg-warning'></textarea>
+                            <button className='btn btn-success mt-4 font-weight-bold'>Post</button>
+                        </form>
+                        {comments.map(comment => (  // shorthand multi line return with () // .map takes an existing array, does something to it, and returns a new array
+                            <div key={`comment-key-${comment.id}`} className="card my-2 shadow">
+                                <div className="card-body">
+                                    <h5 className="card-title">{comment.name}</h5>
+                                    <p className="card-text">{comment.comment}</p>
+                                    <small className="card-text text-secondary">{moment(comment.created_at).format('h:mm a - MMMM Do YYYY')}</small>
+                                    <div className="d-flex justify-content-end">
+                                        <Link className="btn text-success font-weight-bold" to={`/comments/${comment.id}/admin`}>Edit Chirp</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </section>
         </main>

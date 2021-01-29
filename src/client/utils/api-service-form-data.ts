@@ -1,4 +1,4 @@
-export const TOKEN_KEY = 'token'; 
+import { TOKEN_KEY } from './api-service-json';
 
 export default async <T = any>(uri: string, method: string = 'GET', body?: {}) => {
    
@@ -12,7 +12,7 @@ export default async <T = any>(uri: string, method: string = 'GET', body?: {}) =
     }
 
     if (method === 'POST' || method === 'PUT') {
-        // headers.append('Content-Type', 'multipart/form-data') Javascript will set the header for you
+        //headers.append('Content-Type', 'multipart/form-data')
         options.body = formData; 
     }
 

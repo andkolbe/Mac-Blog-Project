@@ -30,6 +30,7 @@ const Admin: React.FC<AdminProps> = props => {
             oldId = blogtags[0].tagid;
             setTitle(blog.title); // always use the setter when you are changing state
             setContent(blog.content);
+            setFile(blog.file);
             setSelectedTagid(blogtags[0].tagid); // tagid comes from way the stored procedure is written
         })()
     }, [id]) // rerender the view when the id changes
