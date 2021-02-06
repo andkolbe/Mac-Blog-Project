@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import db from '../../db';
+import * as passport from 'passport';
+import { ReqUser } from '../../utils/types';
 
 const router = Router();
 
@@ -7,7 +9,7 @@ router.get('/:id?', async (req, res) => {
     const id = Number(req.params.id)
     try {
         if (id) {
-            const [comment] = await db.comments.one(id);
+            const comment = await db.comments.allForBlog(id);
             res.json(comment)
         } else {
             const comments = await db.comments.all();
@@ -19,8 +21,10 @@ router.get('/:id?', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', passport.authenticate('jwt') , async (req: ReqUser, res) => {
     const commentDTO = req.body;
+    console.log(req.user);
+    commentDTO.authorid = req.user.id
     try {
         const result = await db.comments.insert(commentDTO);
         res.json(result);

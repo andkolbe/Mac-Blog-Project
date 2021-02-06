@@ -34,7 +34,7 @@ router.get('/:id?', async (req, res) => {
 // Request Body { title: string, content: string, file: File }
 
 //@ts-ignore
-router.post('/', passport.authorize('jwt'), upload.single('image'), async (req: any, res) => { // image matches the key on NewPost
+router.post('/', passport.authenticate('jwt'), upload.single('image'), async (req: any, res) => { // image matches the key on NewPost
     try {
         const blogDTO = req.body; // DTO don't mix network layer with data layer
         blogDTO.authorid = 1; // whoever is logged in will replace this eventually
@@ -47,10 +47,11 @@ router.post('/', passport.authorize('jwt'), upload.single('image'), async (req: 
     }
 })
 
-router.put('/:id', passport.authorize('jwt'), async (req, res) => {
+router.put('/:id', passport.authenticate('jwt'), async (req: any, res) => {
     try {
         const id = Number(req.params.id);
-        const blogDTO = req.body; 
+        const blogDTO = req.body;
+        blogDTO.image_url = req.file.location;
         const result = await db.blogs.update(id, blogDTO);
         res.json(result);
     } catch (error) {

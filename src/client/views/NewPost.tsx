@@ -28,7 +28,7 @@ const NewPost: React.FC<NewPostProps> = props => {
         newBlog.append('title', title);
         newBlog.append('content', content);
         newBlog.append('image', file);
-        await apiFormData('/api/blogs', 'POST', { newBlog } )
+        await apiFormData('/api/blogs', 'POST', newBlog )
             .then(blogResult => {
                 if (selectedTagid !== '0') {
                     apiJSON('/api/blogtags', 'POST', { blogid: blogResult.insertId, tagid: selectedTagid })

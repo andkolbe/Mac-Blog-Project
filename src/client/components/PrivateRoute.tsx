@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { TOKEN_KEY } from '../utils/api-service-json';
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, ...rest }) => { // children and ...rest are destructured from props
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, ...rest }) => { // children and ...rest are destructured from props. don't have to write props.children
     // ...rest represents the rest of the props of this component
     
     const token = localStorage.getItem(TOKEN_KEY) 

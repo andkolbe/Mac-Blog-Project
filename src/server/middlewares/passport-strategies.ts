@@ -11,6 +11,9 @@ passport.serializeUser((user, done) => done(null, user))
 passport.deserializeUser((user, done) => done(null, user))
 // these two lines create a req.user. They must go before you initialize your routes
 // serialize creates a req.user and deserialize will remove it in certain scenarios
+// the user is saved in the session and is later used to retrieve the whole object via the deserialize function
+
+// the process of serialization consists of encoding a header, payload and signature if present with base64url algorithm
 
 passport.use(new LocalStrategy.Strategy({ // passport strategies are writtien as object oriented classes
     usernameField: 'email' // local accepts a username by default so we can override that with email
@@ -60,7 +63,7 @@ passport.use(new JWTStrategy.Strategy({ // tells our server how to handle a bear
     try {
         const [author] = await db.authors.one(payload.userid);  
     //  const [author] = await db.authors.find('id', payload.userid); SAME THING
-        if (author && author.banned !== 'y') {
+    if (author && author.banned !== 'y') {
             delete author.password
             done(null, author); // the first argument of done is whatever the error is
         } else {

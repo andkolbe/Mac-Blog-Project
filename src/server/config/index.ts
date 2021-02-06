@@ -6,6 +6,9 @@ if (!envFound) {
     throw new Error('no .env file'); // if there is no env file don't run the application
 }
 
+// config object
+// the process.env property returns an object containing the user environment
+// assigning a property on process.env will convert the value to a string
 export default {
     mysql: { // credentials for the mysql.createPool(). export as config.mysql
         host: process.env.DB_HOST,

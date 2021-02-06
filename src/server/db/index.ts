@@ -13,7 +13,7 @@ export const Query = <T = any>(query: string, values?: any) => { // <T = any> me
     return new Promise<T>((resolve, reject) => {
 
         const sql = mysql.format(query, values); // debugging utility. Formats the query and values into one string
-        // console.log(sql);
+        console.log(sql);
 
         pool.query(sql, (err, results) => {
             if (err) {

@@ -5,7 +5,9 @@ import type { IPayload } from './types';
 export const createToken = (payload: IPayload) => {
     const token = jwt.sign(payload, config.auth.secret, { expiresIn: config.auth.expires }); // json web tokens can expire themselves with no extra logic from you
     // use jswt.sign because you are attaching a unique signature to each token. Unique payload, secret, and expire date
+    // we need a signature to allow us to establish the authenticity of the JWT
     // hide the secret and expires in date behind .env
+    // a signature doesn't prevent others from reading the contents of the JWT. That's what encryption is for
     return token;
 }
 

@@ -16,7 +16,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/', passport.authorize('jwt'), async (req, res) => {
+router.post('/', passport.authenticate('jwt'), async (req, res) => {
     try {
         const { blogid, tagid } = req.body; // destructured from the blogtag db page
         await db.blogtags.insert(blogid, tagid);
@@ -27,7 +27,7 @@ router.post('/', passport.authorize('jwt'), async (req, res) => {
     }
 })
 
-router.put('/:id', passport.authorize('jwt'), async (req, res) => {
+router.put('/:id', passport.authenticate('jwt'), async (req, res) => {
     const id = Number(req.params.id)
     const tagDTO = req.body
     try {
@@ -39,7 +39,7 @@ router.put('/:id', passport.authorize('jwt'), async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', passport.authenticate('jwt'), async (req, res) => {
     try {
         const id = Number(req.params.id)
         await db.blogtags.destroy(id);

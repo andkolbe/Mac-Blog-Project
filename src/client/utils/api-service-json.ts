@@ -1,7 +1,7 @@
 // new hotnesssssssss
 // nice
 
-export const TOKEN_KEY = 'token'; // strings are easy to typo. variables have autocomplete 
+export const TOKEN_KEY = 'token'; // strings are easy to typo. variables have autocomplete // can be named anything
 // a named export must always be imported inside of curly braces
 export default async <T = any>(uri: string, method: string = 'GET', body?: {}) => {
     // method will default to GET unless provided
@@ -23,15 +23,28 @@ export default async <T = any>(uri: string, method: string = 'GET', body?: {}) =
 
 
     const headers = new Headers();
-    // append won't overwrite existing keys. set will overwrite existing keys
+    // headers are mostly used to describe cryptographic operations such as signing and/or encryption
+    // it can also specify additional properties like media and content type, but those are used less
+    // the cryptographic operations in the header define whether the JWT is signed and/or encrypted 
+
     const options: {[ key: string ]: string | Headers} = { // how to strong type a javascript object when you don't know what the property is going to be
                 // [] doesn't mean array here. bracket notation. same as using dot notation
         method, // is of type string
         headers // is of type Headers
     }
 
+    /* This is the options object
+    {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json
+            },
+            body: JSON.stringify();
+    */
+
     if (method === 'POST' || method === 'PUT') {
         headers.append('Content-Type', 'application/json') // we only need this line if we are using a POST or PUT request
+        // append won't overwrite existing keys. set will overwrite existing keys
         options.body = JSON.stringify(body); // we only need to add the body property and stringify it for a POST or PUT request 
     }
 
@@ -65,6 +78,13 @@ export default async <T = any>(uri: string, method: string = 'GET', body?: {}) =
     }
 
 }
+
+export const setStorage  = (token: string) => {
+    localStorage.setItem(TOKEN_KEY, token);
+}
+
+export const logout = () => localStorage.removeItem(TOKEN_KEY);
+// removeItem will only remove the token and not anything else stored in localStorage
 
 
 

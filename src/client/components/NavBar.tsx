@@ -3,12 +3,11 @@ import { NavLink } from 'react-router-dom';
 import { TOKEN_KEY } from '../utils/api-service-json';
 
 
-const NavBar: React.FC<NavBarProps> = isLoggedIn => {
+const NavBar: React.FC<NavBarProps> = () => {
 
     const Token = localStorage.getItem(TOKEN_KEY); 
 
-    if (Token) isLoggedIn;
-    if (isLoggedIn) {
+    if (Token) {
         return (
             <nav className="nav justify-content-center shadow bg-warning p-3 mb-2">
                 {/* <p>{location.pathname}</p> shows pathname on page on rerenders*/}
@@ -47,8 +46,6 @@ const NavBar: React.FC<NavBarProps> = isLoggedIn => {
 }
 
 
-interface NavBarProps { 
-    
-}
+interface NavBarProps {}
 
 export default NavBar;

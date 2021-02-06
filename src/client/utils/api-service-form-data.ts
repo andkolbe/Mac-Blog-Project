@@ -7,8 +7,9 @@ export default async <T = any>(uri: string, method: string = 'GET', body?: {}) =
     const headers = new Headers();
     const formData = new FormData();
     
-    const options: {[ key: string ]: string | FormData} = {       
-        method
+    const options: {[ key: string ]: any} = {       
+        method,
+        headers
     }
 
     if (method === 'POST' || method === 'PUT') {
