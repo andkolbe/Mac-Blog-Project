@@ -35,6 +35,7 @@ router.get('/:id?', async (req, res) => {
 
 //@ts-ignore
 router.post('/', passport.authenticate('jwt'), upload.single('image'), async (req: any, res) => { // image matches the key on NewPost
+    // if the token was changed in anyway on the front end, the route would fail. it would never work because the secret on the token can't be hacked from the front end
     try {
         const blogDTO = req.body; // DTO don't mix network layer with data layer
         blogDTO.authorid = 1; // whoever is logged in will replace this eventually

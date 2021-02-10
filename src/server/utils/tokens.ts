@@ -19,9 +19,13 @@ export const createToken = (payload: IPayload) => {
 
 // on the payload, iat stands for issued at
 
+// jsonwebtoken isn't stored on the server. it is created anew every time a user logs in an destroyed when they log out
+// the user info is stored on the client, so the server doesn't have to remember anything about the user
+
 
 // if we store json web tokens in a database:
 // resource intensive for constant database lookups but easy to validate and look up an individual token
 
 // if we remain completely stateless and sign them and send them off, and don't store them anywhere:
 // very quick and trustworthy, but if you need to invalidate a token, we have to add code and loops to jump through to find that individual token
+// the easiest way is probably to change the secret, but that will log everyone out, and probably piss them off

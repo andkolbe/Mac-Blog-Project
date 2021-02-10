@@ -65,6 +65,9 @@ const NewPost: React.FC<NewPostProps> = props => {
 
 // the htmlFor and id need to match for screen readers
 
+// URL.createObjectURL(file) is a method that takes an object (such as file) and it creates a temporary local url tied to the document (that's forgotten when we leave) that we can put into an image src
+// it temporarily creates a local image preview until we navigate away
+
 interface NewPostProps { }
 
 export default NewPost;

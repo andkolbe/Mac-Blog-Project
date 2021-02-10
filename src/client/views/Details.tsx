@@ -9,6 +9,7 @@ import type { IBlog, ITag, IComment } from '../utils/types'; // adding type make
 const Details: React.FC<DetailsProps> = props => {
 
     const { id } = useParams<{ id: string }>(); // parameters are always strings by default
+    // the id parameter should match what is written in App.tsx '/details/:id'
 
     const [blog, setBlog] = useState<IBlog>(null);
     // a single IBlog is an object. You can't initialize an empty object because it's expecting all the properties in one IBlog. 
